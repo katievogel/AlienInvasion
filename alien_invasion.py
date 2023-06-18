@@ -33,6 +33,13 @@ class AlienInvasion:
         # setting the background color
         self.bg_color = (230, 230, 230)
 
+    def _fire_laser(self):
+        '''
+        Create a new laser and add it to the lasers group
+        '''
+        new_laser = Laser(self)
+        self.lasers.add(new_laser)
+
     def _check_keydown_event(self, event):
         '''
         Respond to key presses
@@ -44,6 +51,8 @@ class AlienInvasion:
                 self.ship.moving_left = True
             elif event.key == pygame.K_q:
                 sys.exit()
+            elif event.key == pygame.K_SPACE:
+                self._fire_laser()
 
     def _check_keyup_event(self, event):
         '''
@@ -68,6 +77,8 @@ class AlienInvasion:
     def _update_screen(self):
         # redraw the screeen during each pass of the loop
         self.screen.fill(self.settings.bg_color)
+        for laser in self.lasers.sprites():
+            laser.draw_laser()
         self.ship.blitme()
 
         # make the most recently drawn screen visible

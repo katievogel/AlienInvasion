@@ -14,8 +14,8 @@ class Settings:
         # Ship settings
         self.ship_speed = 1.5
 
-        #PewPew settings
-        self.pewpew_speed = 2.0
-        self.pewpew_width = 3
-        self.pewpew_height = 15
-        self.pewpew_color = (60, 60, 60)
+        #laser settings
+        self.laser_speed = 2.0
+        self.laser_width = 3
+        self.laser_height = 15
+        self.laser_color = (60, 60, 60)

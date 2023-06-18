@@ -15,7 +15,7 @@ class Laser(Sprite):
         self.color = self.settings.laser_color
 
         # create a laser rect at 0,0 and then set the correct position
-        self.rect = pygame.Rect(0, 0, self.settings.laser.width, self.settings.laser.height)
+        self.rect = pygame.Rect(0, 0, self.settings.laser_width, self.settings.laser_height)
         self.rect.midtop = ai_game.ship.rect.midtop
 
         # store the laser's position as a float
