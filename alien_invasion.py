@@ -4,6 +4,7 @@ import pygame
 
 from settings import Settings
 from ship import Ship
+from laser import Laser
 
 class AlienInvasion:
     '''
@@ -26,6 +27,7 @@ class AlienInvasion:
         self.settings.screen_height = self.screen.get_rect().height
         pygame.display.set_caption("Alien Invasion")
         self.ship = Ship(self) #self gives Ship access to AlienInvasion resources via AlienInvasion instance
+        self.lasers = pygame.sprite.Group()
 
 
         # setting the background color
@@ -78,6 +80,7 @@ class AlienInvasion:
         while True:
             self._check_events()
             self.ship.update()
+            self.lasers.update()
             self._update_screen()
                 
             # setting the frame rate. will try to loop 60x/s
