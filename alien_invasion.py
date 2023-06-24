@@ -37,8 +37,19 @@ class AlienInvasion:
         '''
         Create a new laser and add it to the lasers group
         '''
-        new_laser = Laser(self)
-        self.lasers.add(new_laser)
+        if len(self.lasers) < self.settings.laser_max_num:
+            new_laser = Laser(self)
+            self.lasers.add(new_laser)
+
+    def _update_laser(self):
+        '''
+        Update position of lasers and get rid of old ones
+        '''
+        self.lasers.update()
+         # get rid of lasers that passed the screen for memory management
+        for laser in self.lasers.copy():
+            if laser.rect.bottom <= 0:
+                self.lasers.remove(laser)
 
     def _check_keydown_event(self, event):
         '''
@@ -91,7 +102,7 @@ class AlienInvasion:
         while True:
             self._check_events()
             self.ship.update()
-            self.lasers.update()
+            self._update_laser()
             self._update_screen()
                 
             # setting the frame rate. will try to loop 60x/s
