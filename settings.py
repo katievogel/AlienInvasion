@@ -19,4 +19,4 @@ class Settings:
         self.laser_width = 3
         self.laser_height = 15
         self.laser_color = (60, 60, 60)
-        self.laser_max_num = 3
+        self.laser_max_num = 10
