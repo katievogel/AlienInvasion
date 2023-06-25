@@ -5,6 +5,7 @@ import pygame
 from settings import Settings
 from ship import Ship
 from laser import Laser
+from alien import Alien
 
 class AlienInvasion:
     '''
@@ -28,11 +29,21 @@ class AlienInvasion:
         pygame.display.set_caption("Alien Invasion")
         self.ship = Ship(self) #self gives Ship access to AlienInvasion resources via AlienInvasion instance
         self.lasers = pygame.sprite.Group()
+        self.aliens = pygame.sprite.Group()
 
+        self._create_fleet()
 
         # setting the background color
         self.bg_color = (230, 230, 230)
 
+    def _create_fleet(self):
+        '''
+        Create the fleet of aliens
+        '''
+        # Make one alien, and add
+        alien = Alien(self)
+        self.aliens.add(alien)
+    
     def _fire_laser(self):
         '''
         Create a new laser and add it to the lasers group
@@ -91,6 +102,7 @@ class AlienInvasion:
         for laser in self.lasers.sprites():
             laser.draw_laser()
         self.ship.blitme()
+        self.aliens.draw(self.screen)
 
         # make the most recently drawn screen visible
         pygame.display.flip()
