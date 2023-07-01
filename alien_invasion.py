@@ -83,6 +83,14 @@ class AlienInvasion:
         for laser in self.lasers.copy():
             if laser.rect.bottom <= 0:
                 self.lasers.remove(laser)
+                
+    def _update_aliens(self):
+        '''
+        Update the positions of all aliens in the fleet
+        '''
+        self.aliens.update()
+
+
 
     def _check_keydown_event(self, event):
         '''
@@ -137,6 +145,7 @@ class AlienInvasion:
             self._check_events()
             self.ship.update()
             self._update_laser()
+            self._update_aliens()
             self._update_screen()
                 
             # setting the frame rate. will try to loop 60x/s
