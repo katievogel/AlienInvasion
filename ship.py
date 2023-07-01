@@ -14,7 +14,7 @@ class Ship:
         self.settings = ai_game.settings
 
         # Load the ship image and position on screen 
-        self.image = pygame.image.load('images/ship.bmp')
+        self.image = pygame.image.load('images/space-fighter-clipart-md.png')
         self.rect = self.image.get_rect()
 
         # start each new ship at the bottom center of the screen
