@@ -99,6 +99,12 @@ class AlienInvasion:
         for laser in self.lasers.copy():
             if laser.rect.bottom <= 0:
                 self.lasers.remove(laser)
+        self._check_laser_alien_collisions()
+        
+    def _check_laser_alien_collisions(self):
+        '''
+        Respond to laser-alien collisions. Remove any lasers & aliens that have collided
+        '''    
         collisions = pygame.sprite.groupcollide(
             self.lasers, self.aliens, True, True
         )
@@ -113,6 +119,10 @@ class AlienInvasion:
         '''
         self._check_fleet_edges()
         self.aliens.update()
+
+        # check for alien-ship collisions
+        if pygame.sprite.spritecollideany(self.ship, self.aliens):
+            print("Ship hit!")
     
     def _check_keydown_event(self, event):
         '''
