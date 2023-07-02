@@ -1,9 +1,11 @@
 import sys
+from time import sleep
 
 import pygame
 
 from settings import Settings
 from ship import Ship
+from game_stats import GameStats
 from laser import Laser
 from alien import Alien
 
@@ -22,6 +24,9 @@ class AlienInvasion:
         self.clock = pygame.time.Clock()
 
         self.settings = Settings()
+
+        # An instance of GameStats to store game statistics. A good example showing that an instance of a class represents state an object
+        self.stats = GameStats(self)
 
         self.screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
         self.settings.screen_width = self.screen.get_rect().width
@@ -113,6 +118,25 @@ class AlienInvasion:
             self.lasers.empty()
             self._create_fleet()
     
+    def _ship_hits(self):
+        '''
+        Respond to the ship being his by an alien
+        '''
+        # Decrement ships left on each hit
+        self.stats.ships_left = -1
+
+        # Get rid of any remaining lasers and aliens on hit
+        self.lasers.empty()
+        self.aliens.empty()
+
+        # Create a new fleet and center the ship for the next round
+        self._create_fleet()
+        self.ship.center_ship()
+        
+        # Pause for player to get ready for next round
+        sleep(0.5)
+
+    
     def _update_aliens(self):
         '''
         Check if fleet is at the edge, update the positions of all aliens in the fleet.
@@ -122,7 +146,7 @@ class AlienInvasion:
 
         # check for alien-ship collisions
         if pygame.sprite.spritecollideany(self.ship, self.aliens):
-            print("Ship hit!")
+            self._ship_hits()
     
     def _check_keydown_event(self, event):
         '''
