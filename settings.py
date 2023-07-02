@@ -15,7 +15,7 @@ class Settings:
         self.ship_speed = 1.5
 
         # Laser settings
-        self.laser_speed = 2.0
+        self.laser_speed = 2.5
         self.laser_width = 3
         self.laser_height = 15
         self.laser_color = (60, 60, 60)
