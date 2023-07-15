@@ -146,6 +146,7 @@ class AlienInvasion:
         
         else:
             self.game_active = False
+            pygame.mouse.set_visible(True)
 
     def _check_for_aliens_at_bottom(self):
         '''
@@ -208,6 +209,8 @@ class AlienInvasion:
             self._create_fleet()
             self.ship.center_ship()
             self.game_active = True
+            #hide mouse cursor while playing
+            pygame.mouse.set_visisble(False)
 
     def _check_events(self):
         # watch for keyboard and mouse events
