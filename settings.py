@@ -27,3 +27,27 @@ class Settings:
         self.fleet_drop_speed = 100
         # fleet direction of 1 represents right, -1 is left
         self.fleet_direction = 1
+
+        # How quickly the game speeds up
+        self.speed_up_scale = 1.1
+
+        self.initialize_dynamic_setting()
+
+    def initialize_dynamic_settings(self):
+        '''
+        Initialize settings that will change throughout the game
+        '''
+        self.ship_speed = 1.5
+        self.laser_speed = 2.5
+        self.alien_speed = 1.0
+
+        #fleet direct of 1 is right, -1 is left
+        self.fleet_direction = 1
+
+    def increase_speed(self):
+        '''
+        Increases the various speed settings
+        '''
+        self.ship_speed *= self.speed_up_scale
+        self.laser_speed *= self.speed_up_scale
+        self.alien_speed *= self.speed_up_scale
