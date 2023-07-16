@@ -6,6 +6,7 @@ import pygame
 from settings import Settings
 from ship import Ship
 from game_stats import GameStats
+from scoreboard import Scoreboard
 from button import Button
 from laser import Laser
 from alien import Alien
@@ -26,13 +27,14 @@ class AlienInvasion:
 
         self.settings = Settings()
 
-        # An instance of GameStats to store game statistics. A good example showing that an instance of a class represents state an object
-        self.stats = GameStats(self)
-
         self.screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
         self.settings.screen_width = self.screen.get_rect().width
         self.settings.screen_height = self.screen.get_rect().height
         pygame.display.set_caption("Alien Invasion")
+        # An instance of GameStats to store game statistics. A good example showing that an instance of a class represents state an object
+        self.stats = GameStats(self)
+        #An instance of Scoreboard to create a score board and store game stats
+        self.sb = Scoreboard(self)
         self.ship = Ship(self) #self gives Ship access to AlienInvasion resources via AlienInvasion instance
         self.lasers = pygame.sprite.Group()
         self.aliens = pygame.sprite.Group()
@@ -120,10 +122,18 @@ class AlienInvasion:
         collisions = pygame.sprite.groupcollide(
             self.lasers, self.aliens, True, True
         )
+
+        if collisions:
+            for aliens in collisions.values():
+                self.stats.score += self.settings.alien_points * len(aliens)
+                self.sb.prep_score()
+                self.sb.check_high_score()
+
         if not self.aliens:
             # destroy existing lasers and make new fleet
             self.lasers.empty()
             self._create_fleet()
+            self.settings.increase_speed()
     
     def _ship_hits(self):
         '''
@@ -203,14 +213,16 @@ class AlienInvasion:
         button_clicked = self.play_button.rect.collidepoint(mouse_position)
         if button_clicked and not self.game_active:
             #reset game stats whenever Play is clicked
+            self.settings.initialize_dynamic_settings()
             self.stats.reset_stats()
+            self.sb.prep_score()
             self.lasers.empty()
             self.aliens.empty()
             self._create_fleet()
             self.ship.center_ship()
             self.game_active = True
             #hide mouse cursor while playing
-            pygame.mouse.set_visisble(False)
+            pygame.mouse.set_visible(False)
 
     def _check_events(self):
         # watch for keyboard and mouse events
@@ -232,6 +244,9 @@ class AlienInvasion:
             laser.draw_laser()
         self.ship.blitme()
         self.aliens.draw(self.screen)
+
+        #draw the the score info
+        self.sb.show_score()
 
         # draw the play button if the game is inactive
         if not self.game_active:
