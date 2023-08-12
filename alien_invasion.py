@@ -134,6 +134,10 @@ class AlienInvasion:
             self.lasers.empty()
             self._create_fleet()
             self.settings.increase_speed()
+
+            #increase level
+            self.stats.level +=1
+            self.sb.prep_level()
     
     def _ship_hits(self):
         '''
@@ -216,6 +220,7 @@ class AlienInvasion:
             self.settings.initialize_dynamic_settings()
             self.stats.reset_stats()
             self.sb.prep_score()
+            self.sb.prep_level()
             self.lasers.empty()
             self.aliens.empty()
             self._create_fleet()
