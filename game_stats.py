@@ -12,6 +12,7 @@ class GameStats:
         self.reset_stats()
         # high score should never be reset
         self.high_score = 0
+        self.level = 1
 
     def reset_stats(self):
         '''
