@@ -144,8 +144,9 @@ class AlienInvasion:
         Respond to the ship being his by an alien
         '''
         if self.stats.ships_left > 0:
-            # Decrement ships left on each hit
-            self.stats.ships_left = -1
+            # Decrement ships left on each hit, and update scoreboard
+            self.stats.ships_left -= 1
+            self.sb.prep_ships()
 
             # Get rid of any remaining lasers and aliens on hit
             self.lasers.empty()
@@ -221,6 +222,7 @@ class AlienInvasion:
             self.stats.reset_stats()
             self.sb.prep_score()
             self.sb.prep_level()
+            self.sb.prep_ships()
             self.lasers.empty()
             self.aliens.empty()
             self._create_fleet()
