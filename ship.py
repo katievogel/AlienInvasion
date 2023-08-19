@@ -1,5 +1,9 @@
 import pygame
 from pygame.sprite import Sprite
+from settings import Settings
+
+settings = Settings()
+DEFAULT_IMAGE_SIZE = (settings.screen_width * .12, settings.screen_height * .2)
 
 class Ship(Sprite):
     '''
@@ -15,8 +19,13 @@ class Ship(Sprite):
         self.screen_rect = ai_game.screen.get_rect()
         self.settings = ai_game.settings
 
-        # Load the ship image and position on screen 
+        # Load the ship image 
         self.image = pygame.image.load('images/space-fighter-clipart-md.png')
+ 
+        # Scale the image to appropriate size in play area
+        self.scaled_image = pygame.transform.scale(self.image, DEFAULT_IMAGE_SIZE)
+        
+        # Load ship position on screen
         self.rect = self.image.get_rect()
 
         # start each new ship at the bottom center of the screen
@@ -54,4 +63,4 @@ class Ship(Sprite):
         '''
         Draw the ship at its current location
         '''
-        self.screen.blit(self.image, self.rect)
+        self.screen.blit(self.scaled_image, self.rect)
