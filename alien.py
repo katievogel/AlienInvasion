@@ -1,6 +1,9 @@
 import pygame
-
 from pygame.sprite import Sprite
+from settings import Settings
+
+settings = Settings()
+DEFAULT_IMAGE_SIZE = (settings.screen_width * .08, settings.screen_height * .18)
 
 class Alien(Sprite):
     '''
@@ -14,8 +17,9 @@ class Alien(Sprite):
         self.screen = ai_game.screen
         self.settings = ai_game.settings
 
-        # Load the alien image and set its rect attribute
-        self.image = pygame.image.load('images/alien.bmp')
+        # Load the alien image, scale it, and set its rect attribute
+        self.image = pygame.transform.scale(pygame.image.load('images/alien.bmp'), DEFAULT_IMAGE_SIZE)
+        
         self.rect = self.image.get_rect()
 
         # Start each new alien near the top left of the screen
