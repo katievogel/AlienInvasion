@@ -4,7 +4,7 @@ from time import sleep
 import pygame
 
 from settings import Settings
-from ship import Ship
+from ship import Ship, ShipLivesGreen, ShipLivesRed
 from game_stats import GameStats
 from scoreboard import Scoreboard
 from button import Button
