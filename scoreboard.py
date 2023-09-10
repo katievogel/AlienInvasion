@@ -3,7 +3,7 @@ from pygame.sprite import Group
 
 import pygame.font
 
-from ship import Ship
+from ship import Ship, ShipLivesRed, ShipLivesGreen
 
 class Scoreboard:
     '''
@@ -71,12 +71,14 @@ class Scoreboard:
         '''
         Show how many ships are left
         '''
-        self.ships = Group()
-        for ship_number in range(self.stats.ships_left):
-            ship = Ship(self.ai_game)
-            ship.rect.x = 10 + ship_number * ship.rect.width
-            ship.rect.y = 10
-            self.ships.add(ship)
+        self.ships_lives = [] #Group()
+        for ship_number in range(3):
+            if ship_number < self.stats.ships_left:
+                ship_lives = ShipLivesGreen(self.ai_game)
+            else:
+                ship_lives = ShipLivesRed(self.ai_game)
+            ship_lives.rect.x += ship_number * 10
+            self.ships_lives.append(ship_lives) #.add
 
     def check_high_score(self):
         '''
@@ -94,4 +96,7 @@ class Scoreboard:
         self.screen.blit(self.score_image, self.score_rect)
         self.screen.blit(self.high_score_image, self.high_score_rect)
         self.screen.blit(self.level_image, self.level_rect)
-        self.ships.draw(self.screen)
+        #self.ships_lives.draw(self.screen)
+        for s in self.ships_lives: 
+            s.blitme()
+            #self.screen.blit(s.scaled_image, s.rect)
