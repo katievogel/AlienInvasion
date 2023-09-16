@@ -71,13 +71,13 @@ class Scoreboard:
         '''
         Show how many ships are left
         '''
-        self.ships_lives = [] #Group()
-        for ship_number in range(3):
+        self.ships_lives = [] 
+        for ship_number in range(self.settings.ship_limit):
             if ship_number < self.stats.ships_left:
                 ship_lives = ShipLivesGreen(self.ai_game)
             else:
                 ship_lives = ShipLivesRed(self.ai_game)
-            ship_lives.rect.x += ship_number * 10
+            ship_lives.rect.x += ship_number * 150
             self.ships_lives.append(ship_lives) #.add
 
     def check_high_score(self):
